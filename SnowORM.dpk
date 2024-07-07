@@ -29,9 +29,13 @@ package SnowORM;
 
 requires
   rtl,
-  dbrtl;
+  dbrtl,
+  FireDAC,
+  FireDACCommonDriver,
+  FireDACCommon;
 
 contains
-  SnowORM.Connection.Interfaces in 'Connection\SnowORM.Connection.Interfaces.pas';
+  SnowORM.Connection.Interfaces in 'Connection\SnowORM.Connection.Interfaces.pas',
+  SnowORM.Connection.Adapters.FireDAC in 'Connection\Adapters\SnowORM.Connection.Adapters.FireDAC.pas';
 
 end.

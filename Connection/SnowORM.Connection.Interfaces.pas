@@ -8,8 +8,8 @@ uses
 type
   ISnowDACAdapter = interface
     ['{E4C5CA59-5DDC-4281-AA3A-7FBFB4F63AFB}']
-    function GetConnectionComponent: TCustomConnection;
-    procedure SetConnectionComponent(var AConnectionComponent: TCustomConnection);
+    function GetComponent: TCustomConnection;
+    procedure SetComponent(var ADAC: TCustomConnection);
     function ExecSQL(const ASQL: string): Integer; overload;
     function ExecSQL(const ASQL: string; var AResultSet: TDataSet): Integer; overload;
   end;

@@ -98,7 +98,11 @@
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="dbrtl.dcp"/>
+        <DCCReference Include="FireDAC.dcp"/>
+        <DCCReference Include="FireDACCommonDriver.dcp"/>
+        <DCCReference Include="FireDACCommon.dcp"/>
         <DCCReference Include="Connection\SnowORM.Connection.Interfaces.pas"/>
+        <DCCReference Include="Connection\Adapters\SnowORM.Connection.Adapters.FireDAC.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
