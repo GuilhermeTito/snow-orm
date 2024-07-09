@@ -6,18 +6,16 @@ uses
   Data.DB;
 
 type
-  ISnowDACAdapter = interface
-    ['{E4C5CA59-5DDC-4281-AA3A-7FBFB4F63AFB}']
-    function GetComponent: TCustomConnection;
-    procedure SetComponent(var ADAC: TCustomConnection);
-    function ExecSQL(const ASQL: string): Integer; overload;
-    function ExecSQL(const ASQL: string; var AResultSet: TDataSet): Integer; overload;
-  end;
-
   ISnowConnection = interface
     ['{0FA1DDA4-EA7D-4C5A-A911-6CAD0F936ED8}']
-    function GetDataAccessComponent: ISnowDACAdapter;
-    procedure SetDataAccessComponent(var AConnectionComponent: ISnowDACAdapter);
+    function GetDataAccessComponent: TCustomConnection;
+    procedure SetDataAccessComponent(var ADataAccessComponent: TCustomConnection);
+    procedure Open;
+    procedure Close;
+    procedure StartTransaction;
+    function InTransaction: Boolean;
+    procedure Rollback;
+    procedure Commit;
     function ExecSQL(const ASQL: string): Integer; overload;
     function ExecSQL(const ASQL: string; var AResultSet: TDataSet): Integer; overload;
   end;
