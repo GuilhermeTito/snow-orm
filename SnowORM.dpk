@@ -38,6 +38,7 @@ contains
   SnowORM.Connection.Interfaces in 'Connection\SnowORM.Connection.Interfaces.pas',
   SnowORM.Connection.Adapters.FireDAC in 'Connection\Adapters\SnowORM.Connection.Adapters.FireDAC.pas',
   SnowORM.Mapping.Attributes in 'Mapping\SnowORM.Mapping.Attributes.pas',
-  SnowORM.Mapping.Properties in 'Mapping\SnowORM.Mapping.Properties.pas';
+  SnowORM.Mapping.Properties in 'Mapping\SnowORM.Mapping.Properties.pas',
+  SnowORM.Types.Nullable in 'Types\SnowORM.Types.Nullable.pas';
 
 end.

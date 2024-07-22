@@ -105,6 +105,7 @@
         <DCCReference Include="Connection\Adapters\SnowORM.Connection.Adapters.FireDAC.pas"/>
         <DCCReference Include="Mapping\SnowORM.Mapping.Attributes.pas"/>
         <DCCReference Include="Mapping\SnowORM.Mapping.Properties.pas"/>
+        <DCCReference Include="Types\SnowORM.Types.Nullable.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
