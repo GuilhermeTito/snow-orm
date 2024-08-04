@@ -1,4 +1,4 @@
-unit SnowORM.Connection.Adapters.FireDAC;
+unit SnowORM.Connection.FireDAC;
 
 interface
 
@@ -6,13 +6,13 @@ uses
   SnowORM.Connection.Interfaces, Data.DB, FireDAC.Comp.Client;
 
 type
-  TSnowFireDACAdapter = class (TInterfacedObject, ISnowConnection)
+  TSnowFireDACConnection = class (TInterfacedObject, ISnowConnection)
     private
       FDataAccessComponent: TFDConnection;
     public
       class function New: ISnowConnection;
       function GetDataAccessComponent: TCustomConnection;
-      procedure SetDataAccessComponent(var ADataAccessComponent: TCustomConnection);
+      procedure SetDataAccessComponent(ADataAccessComponent: TCustomConnection);
       procedure Open;
       procedure Close;
       procedure StartTransaction;
@@ -25,61 +25,61 @@ type
 
 implementation
 
-{ TSnowFireDACAdapter }
+{ TSnowFireDACConnection }
 
-function TSnowFireDACAdapter.ExecSQL(const ASQL: string): Integer;
+function TSnowFireDACConnection.ExecSQL(const ASQL: string): Integer;
 begin
   Result := FDataAccessComponent.ExecSQL(ASQL);
 end;
 
-procedure TSnowFireDACAdapter.Close;
+procedure TSnowFireDACConnection.Close;
 begin
   FDataAccessComponent.Connected := False;
 end;
 
-procedure TSnowFireDACAdapter.Commit;
+procedure TSnowFireDACConnection.Commit;
 begin
   FDataAccessComponent.Commit;
 end;
 
-function TSnowFireDACAdapter.ExecSQL(const ASQL: string;
+function TSnowFireDACConnection.ExecSQL(const ASQL: string;
   var AResultSet: TDataSet): Integer;
 begin
   Result := FDataAccessComponent.ExecSQL(ASQL, AResultSet);
 end;
 
-function TSnowFireDACAdapter.GetDataAccessComponent: TCustomConnection;
+function TSnowFireDACConnection.GetDataAccessComponent: TCustomConnection;
 begin
   Result := FDataAccessComponent;
 end;
 
-function TSnowFireDACAdapter.InTransaction: Boolean;
+function TSnowFireDACConnection.InTransaction: Boolean;
 begin
   Result := FDataAccessComponent.InTransaction;
 end;
 
-class function TSnowFireDACAdapter.New: ISnowConnection;
+class function TSnowFireDACConnection.New: ISnowConnection;
 begin
   Result := Self.Create;
 end;
 
-procedure TSnowFireDACAdapter.Open;
+procedure TSnowFireDACConnection.Open;
 begin
   FDataAccessComponent.Connected := True;
 end;
 
-procedure TSnowFireDACAdapter.Rollback;
+procedure TSnowFireDACConnection.Rollback;
 begin
   FDataAccessComponent.Rollback;
 end;
 
-procedure TSnowFireDACAdapter.SetDataAccessComponent(
-  var ADataAccessComponent: TCustomConnection);
+procedure TSnowFireDACConnection.SetDataAccessComponent(
+  ADataAccessComponent: TCustomConnection);
 begin
   FDataAccessComponent := ADataAccessComponent as TFDConnection;
 end;
 
-procedure TSnowFireDACAdapter.StartTransaction;
+procedure TSnowFireDACConnection.StartTransaction;
 begin
   FDataAccessComponent.StartTransaction;
 end;
