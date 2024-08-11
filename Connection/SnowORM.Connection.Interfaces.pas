@@ -16,9 +16,11 @@ type
     function InTransaction: Boolean;
     procedure Rollback;
     procedure Commit;
-    function ExecSQL(const ASQL: string): Integer; overload;
-    function ExecSQL(const ASQL: string; var AResultSet: TDataSet): Integer; overload;
+  end;
 
+  ISnowConnectionFactory = interface
+    ['{E4D71B12-1B44-4FD1-9DBD-2E2BAE204D2F}']
+    function NewConnection: ISnowConnection;
   end;
 
 implementation

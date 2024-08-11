@@ -10,7 +10,8 @@ type
     private
       FDataAccessComponent: TFDConnection;
     public
-      class function New: ISnowConnection;
+      constructor Create(ADataAccessComponent: TCustomConnection);
+      class function New(ADataAccessComponent: TCustomConnection): ISnowConnection;
       function GetDataAccessComponent: TCustomConnection;
       procedure SetDataAccessComponent(ADataAccessComponent: TCustomConnection);
       procedure Open;
@@ -19,18 +20,11 @@ type
       function InTransaction: Boolean;
       procedure Rollback;
       procedure Commit;
-      function ExecSQL(const ASQL: string): Integer; overload;
-      function ExecSQL(const ASQL: string; var AResultSet: TDataSet): Integer; overload;
   end;
 
 implementation
 
 { TSnowFireDACConnection }
-
-function TSnowFireDACConnection.ExecSQL(const ASQL: string): Integer;
-begin
-  Result := FDataAccessComponent.ExecSQL(ASQL);
-end;
 
 procedure TSnowFireDACConnection.Close;
 begin
@@ -42,10 +36,9 @@ begin
   FDataAccessComponent.Commit;
 end;
 
-function TSnowFireDACConnection.ExecSQL(const ASQL: string;
-  var AResultSet: TDataSet): Integer;
+constructor TSnowFireDACConnection.Create(ADataAccessComponent: TCustomConnection);
 begin
-  Result := FDataAccessComponent.ExecSQL(ASQL, AResultSet);
+  FDataAccessComponent := ADataAccessComponent as TFDConnection;
 end;
 
 function TSnowFireDACConnection.GetDataAccessComponent: TCustomConnection;
@@ -58,9 +51,9 @@ begin
   Result := FDataAccessComponent.InTransaction;
 end;
 
-class function TSnowFireDACConnection.New: ISnowConnection;
+class function TSnowFireDACConnection.New(ADataAccessComponent: TCustomConnection): ISnowConnection;
 begin
-  Result := Self.Create;
+  Result := Self.Create(ADataAccessComponent);
 end;
 
 procedure TSnowFireDACConnection.Open;
