@@ -32,13 +32,23 @@ requires
   dbrtl,
   FireDAC,
   FireDACCommonDriver,
-  FireDACCommon;
+  FireDACCommon,
+  ibxpress;
 
 contains
   SnowORM.Connection.Interfaces in 'Connection\SnowORM.Connection.Interfaces.pas',
-  SnowORM.Connection.Adapters.FireDAC in 'Connection\Adapters\SnowORM.Connection.Adapters.FireDAC.pas',
+  SnowORM.Connection.FireDAC in 'Connection\SnowORM.Connection.FireDAC.pas',
   SnowORM.Mapping.Attributes in 'Mapping\SnowORM.Mapping.Attributes.pas',
   SnowORM.Mapping.Properties in 'Mapping\SnowORM.Mapping.Properties.pas',
-  SnowORM.Types.Nullable in 'Types\SnowORM.Types.Nullable.pas';
+  SnowORM.Types.Nullable in 'Types\SnowORM.Types.Nullable.pas',
+  SnowORM.SQL.Operators in 'SQL\SnowORM.SQL.Operators.pas',
+  SnowORM.Data.Interfaces in 'Data\SnowORM.Data.Interfaces.pas',
+  SnowORM.Data.Table.FireDAC in 'Data\Table\SnowORM.Data.Table.FireDAC.pas',
+  SnowORM.Data.DAO in 'Data\SnowORM.Data.DAO.pas',
+  SnowORM.Data.Table.Factory in 'Data\Table\SnowORM.Data.Table.Factory.pas',
+  SnowORM.Utils in 'SnowORM.Utils.pas',
+  SnowORM.Connection.IBX in 'Connection\SnowORM.Connection.IBX.pas',
+  SnowORM.Data.Table.IBX in 'Data\Table\SnowORM.Data.Table.IBX.pas',
+  SnowORM.Connection.Factory in 'Connection\SnowORM.Connection.Factory.pas';
 
 end.
