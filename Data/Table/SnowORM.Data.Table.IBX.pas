@@ -31,6 +31,10 @@ type
     procedure Next;
     function RecordCount: Integer;
     function Eof: Boolean;
+    procedure Append;
+    procedure Edit;
+    procedure Post;
+    procedure ApplyUpdates;
     function FindField(const AFieldName: string): TField;
     function FieldByName(const AFieldName: string): TField;
   end;
@@ -41,6 +45,16 @@ uses
   IBX.IBDatabase;
 
 { ISnowFireDACTable }
+
+procedure TSnowIBXTable.Append;
+begin
+  FTable.Append;
+end;
+
+procedure TSnowIBXTable.ApplyUpdates;
+begin
+  FTable.ApplyUpdates;
+end;
 
 procedure TSnowIBXTable.Close;
 begin
@@ -74,6 +88,11 @@ destructor TSnowIBXTable.Destroy;
 begin
   FTable.Free;
   inherited;
+end;
+
+procedure TSnowIBXTable.Edit;
+begin
+  FTable.Edit;
 end;
 
 function TSnowIBXTable.Eof: Boolean;
@@ -134,6 +153,11 @@ end;
 procedure TSnowIBXTable.Open;
 begin
   FTable.Open;
+end;
+
+procedure TSnowIBXTable.Post;
+begin
+  FTable.Post;
 end;
 
 function TSnowIBXTable.RecordCount: Integer;

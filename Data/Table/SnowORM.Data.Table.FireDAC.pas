@@ -31,6 +31,10 @@ type
     procedure Next;
     function RecordCount: Integer;
     function Eof: Boolean;
+    procedure Append;
+    procedure Edit;
+    procedure Post;
+    procedure ApplyUpdates;
     function FindField(const AFieldName: string): TField;
     function FieldByName(const AFieldName: string): TField;
   end;
@@ -38,6 +42,16 @@ type
 implementation
 
 { ISnowFireDACTable }
+
+procedure TSnowFireDACTable.Append;
+begin
+  FTable.Append;
+end;
+
+procedure TSnowFireDACTable.ApplyUpdates;
+begin
+  FTable.ApplyUpdates(0);
+end;
 
 procedure TSnowFireDACTable.Close;
 begin
@@ -71,6 +85,11 @@ destructor TSnowFireDACTable.Destroy;
 begin
   FTable.Free;
   inherited;
+end;
+
+procedure TSnowFireDACTable.Edit;
+begin
+  FTable.Edit;
 end;
 
 function TSnowFireDACTable.Eof: Boolean;
@@ -131,6 +150,11 @@ end;
 procedure TSnowFireDACTable.Open;
 begin
   FTable.Open;
+end;
+
+procedure TSnowFireDACTable.Post;
+begin
+  FTable.Post;
 end;
 
 function TSnowFireDACTable.RecordCount: Integer;

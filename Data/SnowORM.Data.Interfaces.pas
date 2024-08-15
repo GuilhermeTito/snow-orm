@@ -24,6 +24,10 @@ type
     procedure Next;
     function RecordCount: Integer;
     function Eof: Boolean;
+    procedure Append;
+    procedure Edit;
+    procedure Post;
+    procedure ApplyUpdates;
     function FindField(const AFieldName: string): TField;
     function FieldByName(const AFieldName: string): TField;
   end;
