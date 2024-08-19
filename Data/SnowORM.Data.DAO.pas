@@ -13,12 +13,14 @@ type
     constructor Create(AConnection: ISnowConnection);
     procedure Find<T: class>(Entity: T; const AFilter: string = '');
     procedure Insert<T: class>(Entity: T);
+    procedure Update<T: class>(Entity: T);
   end;
 
 implementation
 
 uses
-  SnowORM.Data.Table.Factory, SnowORM.Mapping.Attributes, SnowORM.Utils;
+  SnowORM.Data.Table.Factory, SnowORM.Mapping.Attributes, SnowORM.Utils,
+  SnowORM.SQL.Operators;
 
 { TSnowDAO }
 
@@ -107,7 +109,7 @@ begin
       begin
         if LAttribute is Column then
         begin
-          if Assigned(FTable.FindField(Column(LAttribute).Name)) then
+          if (Assigned(FTable.FindField(Column(LAttribute).Name))) and (not Column(LAttribute).NoInsert) then
             FTable.FieldByName(Column(LAttribute).Name).Value := LProperty.GetValue(TObject(Entity)).AsVariant;
 
           Break;
@@ -120,6 +122,82 @@ begin
     LContext.Free;
     FTable.Close;
     FTable.TableName('');
+  end;
+end;
+
+procedure TSnowDAO.Update<T>(Entity: T);
+var
+  LContext: TRttiContext;
+  LType: TRttiType;
+  LAttribute: TCustomAttribute;
+  LProperty: TRttiProperty;
+  LFilter: string;
+begin
+  LContext := TRttiContext.Create;
+
+  try
+    LType := LContext.GetType(T);
+
+    for LAttribute in LType.GetAttributes do
+    begin
+      if LAttribute is Table then
+      begin
+        FTable.TableName(Table(LAttribute).Name);
+        Break;
+      end;
+    end;
+
+    LFilter := '';
+
+    for LProperty in LType.GetProperties do
+    begin
+      for LAttribute in LProperty.GetAttributes do
+      begin
+        if LAttribute is Column then
+        begin
+          if Column(LAttribute).PrimaryKey then
+            LFilter := LFilter + EQ(Column(LAttribute).Name, LProperty.GetValue(TObject(Entity)).AsVariant) + ' and ';
+
+          Break;
+        end;
+      end;
+    end;
+
+    if LFilter = '' then
+      Exit;
+
+    LFilter := Copy(LFilter, 1, Length(LFilter) - 5);
+
+    FTable.Filtered(True);
+    FTable.Filter(LFilter);
+    FTable.Open;
+
+    if FTable.RecordCount <= 0 then
+      Exit;
+
+    FTable.Edit;
+
+    for LProperty in LType.GetProperties do
+    begin
+      for LAttribute in LProperty.GetAttributes do
+      begin
+        if LAttribute is Column then
+        begin
+          if (Assigned(FTable.FindField(Column(LAttribute).Name))) and (not Column(LAttribute).NoUpdate) then
+            FTable.FieldByName(Column(LAttribute).Name).Value := LProperty.GetValue(TObject(Entity)).AsVariant;
+
+          Break;
+        end;
+      end;
+    end;
+
+    FTable.Post;
+  finally
+    LContext.Free;
+    FTable.Close;
+    FTable.TableName('');
+    FTable.Filtered(False);
+    FTable.Filter('');
   end;
 end;
 
