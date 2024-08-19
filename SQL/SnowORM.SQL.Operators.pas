@@ -95,7 +95,7 @@ end;
 
 function ComparisonOperationBuilder(const FieldName: string; const ComparisonOperator: TSnowComparisonOperator; const Value: Variant): string;
 begin
-  Result := FieldName + ' ' + ComparisonOperatorToStr(ComparisonOperator) + ' ' + VarToStr(Value);
+  Result := '(' + FieldName + ' ' + ComparisonOperatorToStr(ComparisonOperator) + ' ' + VarToStr(Value) + ')';
 end;
 
 function EQ(const FieldName: string; const Value: Variant): string;
