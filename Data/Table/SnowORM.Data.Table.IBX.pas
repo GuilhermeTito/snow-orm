@@ -33,6 +33,7 @@ type
     function Eof: Boolean;
     procedure Append;
     procedure Edit;
+    procedure Delete;
     procedure Post;
     procedure ApplyUpdates;
     function FindField(const AFieldName: string): TField;
@@ -82,6 +83,11 @@ end;
 function TSnowIBXTable.DataSet: TDataSet;
 begin
   Result := FTable;
+end;
+
+procedure TSnowIBXTable.Delete;
+begin
+  FTable.Delete;
 end;
 
 destructor TSnowIBXTable.Destroy;
