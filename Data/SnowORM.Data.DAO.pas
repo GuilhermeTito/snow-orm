@@ -50,9 +50,9 @@ begin
       end;
     end;
 
-    FTable.Filtered(True);
     FTable.Filter(AFilter);
     FTable.Open;
+    FTable.Filtered(True);
 
     if FTable.RecordCount > 0 then
     begin
@@ -168,9 +168,9 @@ begin
 
     LFilter := Copy(LFilter, 1, Length(LFilter) - 5);
 
-    FTable.Filtered(True);
     FTable.Filter(LFilter);
     FTable.Open;
+    FTable.Filtered(True);
 
     if FTable.RecordCount <= 0 then
       Exit;
