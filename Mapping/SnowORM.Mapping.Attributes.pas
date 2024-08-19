@@ -6,28 +6,30 @@ uses SnowORM.Mapping.Properties;
 
 type
   Table = class(TCustomAttribute)
-    private
-      FName: string;
-    public
-      constructor Create(const AName: string);
-      property Name: string read FName;
+  private
+    FName: string;
+  public
+    constructor Create(const AName: string);
+    property Name: string read FName;
   end;
 
   Column = class(TCustomAttribute)
-    private
-      FName: string;
-      FUnique: Boolean;
-      FRequired: Boolean;
-      FNoInsert: Boolean;
-      FNoUpdate: Boolean;
-    public
-      constructor Create(const AName: string); overload;
-      constructor Create(const AName: string; const AProperties: TSnowColumnProperties); overload;
-      property Name: string read FName;
-      property Unique: Boolean read FUnique default False;
-      property Required: Boolean read FRequired default False;
-      property NoInsert: Boolean read FNoInsert default False;
-      property NoUpdate: Boolean read FNoUpdate default False;
+  private
+    FName: string;
+    FPrimaryKey: Boolean;
+    FUnique: Boolean;
+    FRequired: Boolean;
+    FNoInsert: Boolean;
+    FNoUpdate: Boolean;
+  public
+    constructor Create(const AName: string); overload;
+    constructor Create(const AName: string; const AProperties: TSnowColumnProperties); overload;
+    property Name: string read FName;
+    property PrimaryKey: Boolean read FPrimaryKey write FPrimaryKey;
+    property Unique: Boolean read FUnique default False;
+    property Required: Boolean read FRequired default False;
+    property NoInsert: Boolean read FNoInsert default False;
+    property NoUpdate: Boolean read FNoUpdate default False;
   end;
 
 implementation
@@ -46,9 +48,12 @@ constructor Column.Create(const AName: string;
 var
   LProperty: TSnowColumnProperty;
 begin
+  FName := AName;
+
   for LProperty in AProperties do
   begin
     case LProperty of
+      scpPrimaryKey: FPrimaryKey := True;
       scpUnique: FUnique := True;
       scpRequired: FRequired := True;
       scpNoInsert: FNoInsert := True;

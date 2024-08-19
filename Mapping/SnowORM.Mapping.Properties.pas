@@ -3,7 +3,7 @@ unit SnowORM.Mapping.Properties;
 interface
 
 type
-  TSnowColumnProperty = (scpUnique, scpRequired, scpNoInsert, scpNoUpdate);
+  TSnowColumnProperty = (scpPrimaryKey, scpUnique, scpRequired, scpNoInsert, scpNoUpdate);
 
   TSnowColumnProperties = set of TSnowColumnProperty;
 
