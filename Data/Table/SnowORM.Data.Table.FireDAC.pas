@@ -33,6 +33,7 @@ type
     function Eof: Boolean;
     procedure Append;
     procedure Edit;
+    procedure Delete;
     procedure Post;
     procedure ApplyUpdates;
     function FindField(const AFieldName: string): TField;
@@ -79,6 +80,11 @@ end;
 function TSnowFireDACTable.DataSet: TDataSet;
 begin
   Result := FTable;
+end;
+
+procedure TSnowFireDACTable.Delete;
+begin
+  FTable.Delete;
 end;
 
 destructor TSnowFireDACTable.Destroy;
