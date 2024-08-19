@@ -27,7 +27,7 @@ function LTE(const FieldName: string; const Value: Variant): string;
 implementation
 
 uses
-  System.Variants;
+  System.Variants, System.SysUtils;
 
 function LogicalOperatorToStr(const LogicalOperator: TSnowLogicalOperator): string;
 begin
@@ -94,8 +94,17 @@ begin
 end;
 
 function ComparisonOperationBuilder(const FieldName: string; const ComparisonOperator: TSnowComparisonOperator; const Value: Variant): string;
+var
+  ValueAsString: string;
 begin
-  Result := '(' + FieldName + ' ' + ComparisonOperatorToStr(ComparisonOperator) + ' ' + VarToStr(Value) + ')';
+  case VarType(Value) of
+    varOleStr, varStrArg, varUStrArg, varString, varUString:
+      ValueAsString := QuotedStr(VarToStr(Value));
+  else
+    ValueAsString := VarToStr(Value);
+  end;
+
+  Result := '(' + FieldName + ' ' + ComparisonOperatorToStr(ComparisonOperator) + ' ' + ValueAsString + ')';
 end;
 
 function EQ(const FieldName: string; const Value: Variant): string;
