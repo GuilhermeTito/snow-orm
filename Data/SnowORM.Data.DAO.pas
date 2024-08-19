@@ -14,6 +14,7 @@ type
     procedure Find<T: class>(Entity: T; const AFilter: string = '');
     procedure Insert<T: class>(Entity: T);
     procedure Update<T: class>(Entity: T);
+    procedure Delete<T: class>(Entity: T);
   end;
 
 implementation
@@ -27,6 +28,66 @@ uses
 constructor TSnowDAO.Create(AConnection: ISnowConnection);
 begin
   FTable := TSnowTableFactory.New(AConnection).NewTable;
+end;
+
+procedure TSnowDAO.Delete<T>(Entity: T);
+var
+  LContext: TRttiContext;
+  LType: TRttiType;
+  LAttribute: TCustomAttribute;
+  LProperty: TRttiProperty;
+  LFilter: string;
+begin
+  LContext := TRttiContext.Create;
+
+  try
+    LType := LContext.GetType(T);
+
+    for LAttribute in LType.GetAttributes do
+    begin
+      if LAttribute is Table then
+      begin
+        FTable.TableName(Table(LAttribute).Name);
+        Break;
+      end;
+    end;
+
+    LFilter := '';
+
+    for LProperty in LType.GetProperties do
+    begin
+      for LAttribute in LProperty.GetAttributes do
+      begin
+        if LAttribute is Column then
+        begin
+          if Column(LAttribute).PrimaryKey then
+            LFilter := LFilter + EQ(Column(LAttribute).Name, LProperty.GetValue(TObject(Entity)).AsVariant) + ' and ';
+
+          Break;
+        end;
+      end;
+    end;
+
+    if LFilter = '' then
+      Exit;
+
+    LFilter := Copy(LFilter, 1, Length(LFilter) - 5);
+
+    FTable.Filter(LFilter);
+    FTable.Open;
+    FTable.Filtered(True);
+
+    if FTable.RecordCount <= 0 then
+      Exit;
+
+    FTable.Delete;
+  finally
+    LContext.Free;
+    FTable.Close;
+    FTable.TableName('');
+    FTable.Filtered(False);
+    FTable.Filter('');
+  end;
 end;
 
 procedure TSnowDAO.Find<T>(Entity: T; const AFilter: string = '');
