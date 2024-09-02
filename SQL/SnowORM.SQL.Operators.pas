@@ -61,7 +61,7 @@ begin
   Result := '(' + Propositions[0] + ')';
 
   for I := 1 to NumberOfPropositions - 1 do
-    Result := Result + ' ' + LogicalOperatorToStr(LogicalOperator) + ' (' + Propositions[1] + ')';
+    Result := Result + ' ' + LogicalOperatorToStr(LogicalOperator) + ' (' + Propositions[I] + ')';
 end;
 
 function OpAnd(const Propositions: TArray<string>): string;
