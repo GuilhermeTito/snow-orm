@@ -49,6 +49,7 @@ contains
   SnowORM.Utils in 'SnowORM.Utils.pas',
   SnowORM.Connection.IBX in 'Connection\SnowORM.Connection.IBX.pas',
   SnowORM.Data.Table.IBX in 'Data\Table\SnowORM.Data.Table.IBX.pas',
-  SnowORM.Connection.Factory in 'Connection\SnowORM.Connection.Factory.pas';
+  SnowORM.Connection.Factory in 'Connection\SnowORM.Connection.Factory.pas',
+  SnowORM.Types.Interfaces in 'Types\SnowORM.Types.Interfaces.pas';
 
 end.

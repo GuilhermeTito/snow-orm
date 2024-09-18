@@ -111,6 +111,7 @@
         <DCCReference Include="Connection\SnowORM.Connection.IBX.pas"/>
         <DCCReference Include="Data\Table\SnowORM.Data.Table.IBX.pas"/>
         <DCCReference Include="Connection\SnowORM.Connection.Factory.pas"/>
+        <DCCReference Include="Types\SnowORM.Types.Interfaces.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
