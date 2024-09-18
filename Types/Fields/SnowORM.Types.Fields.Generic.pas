@@ -1,9 +1,12 @@
-unit SnowORM.Types.Nullable;
+unit SnowORM.Types.Fields.Generic;
 
 interface
 
+uses
+  SnowORM.Types.Interfaces;
+
 type
-  TNullable<T> = class
+  TSnowField<T> = class(TInterfacedObject, ISnowField)
   private
     FValue: T;
     FIsNull: Boolean;
@@ -11,6 +14,7 @@ type
   public
     constructor Create;
     procedure Clear;
+    function AsString: string; virtual; abstract;
     property Value: T read FValue write SetValue;
     property IsNull: Boolean read FIsNull;
   end;
@@ -22,21 +26,21 @@ uses
 
 { TSnowField<T> }
 
-constructor TNullable<T>.Create;
+constructor TSnowField<T>.Create;
 begin
   if not (GetTypeKind(T) in [tkChar, tkWChar, tkString, tkLString, tkWString, tkUString, tkInteger, tkInt64, tkFloat]) then
-    raise Exception.Create('Type unsupported by TNullable');
+    raise Exception.Create('Type unsupported by TSnowField');
 
   Clear;
 end;
 
-procedure TNullable<T>.SetValue(const AValue: T);
+procedure TSnowField<T>.SetValue(const AValue: T);
 begin
   FValue := AValue;
   FIsNull := False;
 end;
 
-procedure TNullable<T>.Clear;
+procedure TSnowField<T>.Clear;
 var
   LContext: TRttiContext;
   LType: TRttiType;

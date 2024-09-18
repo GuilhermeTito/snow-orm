@@ -101,7 +101,7 @@
         <DCCReference Include="Connection\SnowORM.Connection.FireDAC.pas"/>
         <DCCReference Include="Mapping\SnowORM.Mapping.Attributes.pas"/>
         <DCCReference Include="Mapping\SnowORM.Mapping.Properties.pas"/>
-        <DCCReference Include="Types\SnowORM.Types.Nullable.pas"/>
+        <DCCReference Include="Types\Fields\SnowORM.Types.Fields.Generic.pas"/>
         <DCCReference Include="SQL\SnowORM.SQL.Operators.pas"/>
         <DCCReference Include="Data\SnowORM.Data.Interfaces.pas"/>
         <DCCReference Include="Data\Table\SnowORM.Data.Table.FireDAC.pas"/>
@@ -112,6 +112,7 @@
         <DCCReference Include="Data\Table\SnowORM.Data.Table.IBX.pas"/>
         <DCCReference Include="Connection\SnowORM.Connection.Factory.pas"/>
         <DCCReference Include="Types\SnowORM.Types.Interfaces.pas"/>
+        <DCCReference Include="Types\Fields\SnowORM.Types.Fields.Firebird.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

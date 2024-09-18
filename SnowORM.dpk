@@ -40,7 +40,7 @@ contains
   SnowORM.Connection.FireDAC in 'Connection\SnowORM.Connection.FireDAC.pas',
   SnowORM.Mapping.Attributes in 'Mapping\SnowORM.Mapping.Attributes.pas',
   SnowORM.Mapping.Properties in 'Mapping\SnowORM.Mapping.Properties.pas',
-  SnowORM.Types.Nullable in 'Types\SnowORM.Types.Nullable.pas',
+  SnowORM.Types.Fields.Generic in 'Types\Fields\SnowORM.Types.Fields.Generic.pas',
   SnowORM.SQL.Operators in 'SQL\SnowORM.SQL.Operators.pas',
   SnowORM.Data.Interfaces in 'Data\SnowORM.Data.Interfaces.pas',
   SnowORM.Data.Table.FireDAC in 'Data\Table\SnowORM.Data.Table.FireDAC.pas',
@@ -50,6 +50,7 @@ contains
   SnowORM.Connection.IBX in 'Connection\SnowORM.Connection.IBX.pas',
   SnowORM.Data.Table.IBX in 'Data\Table\SnowORM.Data.Table.IBX.pas',
   SnowORM.Connection.Factory in 'Connection\SnowORM.Connection.Factory.pas',
-  SnowORM.Types.Interfaces in 'Types\SnowORM.Types.Interfaces.pas';
+  SnowORM.Types.Interfaces in 'Types\SnowORM.Types.Interfaces.pas',
+  SnowORM.Types.Fields.Firebird in 'Types\Fields\SnowORM.Types.Fields.Firebird.pas';
 
 end.
